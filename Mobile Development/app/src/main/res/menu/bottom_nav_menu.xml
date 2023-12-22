@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/library"
+        android:title="@string/perpustakaan"
+        android:icon="@drawable/baseline_library_24"/>
+    <item
+        android:id="@+id/book"
+        android:title="@string/buku"
+        android:icon="@drawable/baseline_library_books_24"/>
+    <item
+        android:id="@+id/profile"
+        android:title="@string/profil"
+        android:icon="@drawable/baseline_person_24"/>
+</menu>
