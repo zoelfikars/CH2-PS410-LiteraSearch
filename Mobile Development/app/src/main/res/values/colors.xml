@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="green">#24C434</color>
+    <color name="blue">#0021F5</color>
+    <color name="iconActiveColor">#24C434</color>
+    <color name="iconInactiveColor">@color/abu</color>
+    <color name="abu_muda">#EEEEEE</color>
+    <color name="abu">#999999</color>
+</resources>
