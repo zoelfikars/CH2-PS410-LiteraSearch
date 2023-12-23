@@ -1,4 +1,4 @@
-package dicoding.zulfikar.literasearchapp.view.paging
+package dicoding.zulfikar.literasearchapp.view.book
 
 import android.util.Log
 import androidx.paging.ExperimentalPagingApi

@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs")
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -75,6 +77,13 @@ dependencies {
 //    logging interceptor http
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
+//    firebase
+    implementation("com.google.firebase:firebase-auth")
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation("com.google.firebase:firebase-firestore")
 
+//    circular image
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 }
 

@@ -22,4 +22,6 @@
     <string name="buku_lainnya">Buku Lainnya</string>
     <string name="coba_lagi">Coba lagi</string>
     <string name="gagal_load_data_buku">Gagal load data buku</string>
+    <string name="web_client_id">580586420213-uq4gf1is697g65nip9t1g44i7buu2ntv.apps.googleusercontent.com</string>
+    <string name="distance">10 KM</string>
 </resources>

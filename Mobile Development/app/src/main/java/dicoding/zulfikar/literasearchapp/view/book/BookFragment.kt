@@ -7,16 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import dicoding.zulfikar.literasearchapp.data.model.BookModel
 import dicoding.zulfikar.literasearchapp.databinding.FragmentBookBinding
 import dicoding.zulfikar.literasearchapp.view.MainViewModel
 import dicoding.zulfikar.literasearchapp.view.ViewModelFactory
-import dicoding.zulfikar.literasearchapp.view.paging.BookPagingAdapter
 import dicoding.zulfikar.literasearchapp.view.paging.LoadingStateAdapter
-import kotlinx.coroutines.launch
 
 class BookFragment : Fragment() {
     private var _binding: FragmentBookBinding? = null
@@ -24,8 +20,6 @@ class BookFragment : Fragment() {
     private val viewModel: MainViewModel by viewModels {
         ViewModelFactory.getInstance(requireContext())
     }
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,25 +31,25 @@ class BookFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        lifecycleScope.launch {
+//            var trendingAdapter = BookPagingAdapter { selectedStory ->
+//                val items = BookModel(
+//                    coverUrl = selectedStory.coverUrl,
+//                    publicationYear = selectedStory.publicationYear,
+//                    author = selectedStory.author,
+//                    subject = selectedStory.subject,
+//                    isbn = selectedStory.isbn,
+//                    publisher = selectedStory.publisher,
+//                    description = selectedStory.description,
+//                    title = selectedStory.title,
+//                    idPerpus = selectedStory.idPerpus
+//                )
+//                val action = BookFragmentDirections.actionBookFragmentToBookDetailFragment()
+//                findNavController().navigate(action)
+//            }
+//            setupPaging(trendingAdapter)
+//        }
         setupAction()
-        lifecycleScope.launch {
-            var trendingAdapter = BookPagingAdapter { selectedStory ->
-                val items = BookModel(
-                    coverUrl = selectedStory.coverUrl,
-                    publicationYear = selectedStory.publicationYear,
-                    author = selectedStory.author,
-                    subject = selectedStory.subject,
-                    isbn = selectedStory.isbn,
-                    publisher = selectedStory.publisher,
-                    description = selectedStory.description,
-                    title = selectedStory.title,
-                    idPerpus = selectedStory.idPerpus
-                )
-                val action = BookFragmentDirections.actionBookFragmentToBookDetailFragment()
-                findNavController().navigate(action)
-            }
-            setupPaging(trendingAdapter)
-        }
     }
 
     private fun setupAction() {

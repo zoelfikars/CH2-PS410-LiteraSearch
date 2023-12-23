@@ -41,8 +41,8 @@ class NamaEditText : AppCompatEditText, View.OnTouchListener {
 
             override fun afterTextChanged(s: Editable) {
                 val nama = s.toString()
-                if (nama.length < 8 && nama != "") {
-                    error = "Nama harus memiliki setidaknya 8 karakter"
+                if (nama.length < 4 && nama != "") {
+                    error = "Nama harus memiliki setidaknya 4 karakter"
                     setError(error, null)
                 } else {
                     error = null

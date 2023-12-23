@@ -9,11 +9,11 @@ import androidx.paging.liveData
 import com.google.gson.Gson
 import dicoding.zulfikar.literasearchapp.data.local.BookDatabase
 import dicoding.zulfikar.literasearchapp.data.local.entity.BookEntity
+import dicoding.zulfikar.literasearchapp.data.model.Library
 import dicoding.zulfikar.literasearchapp.data.remote.Result
-import dicoding.zulfikar.literasearchapp.data.remote.response.MessageResponse
-import dicoding.zulfikar.literasearchapp.data.remote.response.StoryResponse
+import dicoding.zulfikar.literasearchapp.data.remote.response.LibraryResponse
 import dicoding.zulfikar.literasearchapp.data.remote.retrofit.ApiService
-import dicoding.zulfikar.literasearchapp.view.paging.BookRemoteMediator
+import dicoding.zulfikar.literasearchapp.view.book.BookRemoteMediator
 
 class BookRepository private constructor(
     private var apiService: ApiService,
@@ -32,24 +32,7 @@ class BookRepository private constructor(
         ).liveData
     }
 
-    suspend fun getStories(): Result<StoryResponse> {
-        try {
-            val listResponse = apiService.getStories()
-
-            if (listResponse.error) {
-                val errorMessage = listResponse.message
-                return Result.Error(Exception(errorMessage))
-            }
-            return Result.Success(listResponse)
-        } catch (e: retrofit2.HttpException) {
-            val jsonInString = e.response()?.errorBody()?.string()
-            val errorBody = Gson().fromJson(jsonInString, MessageResponse::class.java)
-            val errorMessage = errorBody.message
-            return Result.Error(Exception(errorMessage))
-        }
-    }
-
-    //    suspend fun getBook(): Result<GetSpecificBookFromLibraryIdResponse> {
+//    suspend fun getBook(): Result<GetSpecificBookFromLibraryIdResponse> {
 //        return try {
 //            val result = apiService.getAllBook()
 //            val mapped = result.data.map { item ->
@@ -71,8 +54,21 @@ class BookRepository private constructor(
 //            return Result.Error(Exception(e.message))
 //        }
 //    }
-    suspend fun getBook(){
+    suspend fun getBook() {
 
+    }
+
+    suspend fun getLibrary(): Result<List<Library>> {
+        Result.Loading
+        try {
+            val listResponse = apiService.getLibrary()
+            return Result.Success(listResponse.data)
+        } catch (e: retrofit2.HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, LibraryResponse::class.java)
+            val errorMessage = errorBody.message
+            return Result.Error(Exception(errorMessage))
+        }
     }
 
     companion object {

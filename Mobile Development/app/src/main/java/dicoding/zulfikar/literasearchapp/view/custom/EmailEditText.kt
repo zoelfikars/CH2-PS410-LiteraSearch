@@ -8,7 +8,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
-import java.util.regex.Pattern
+import dicoding.zulfikar.literasearchapp.utility.isValidEmail
 
 class EmailEditText : AppCompatEditText, View.OnTouchListener {
     constructor(context: Context) : super(context) {
@@ -55,12 +55,5 @@ class EmailEditText : AppCompatEditText, View.OnTouchListener {
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         return false
-    }
-
-    private fun isValidEmail(email: String): Boolean {
-        val emailPattern = Pattern.compile(
-            "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-        )
-        return emailPattern.matcher(email).matches()
     }
 }

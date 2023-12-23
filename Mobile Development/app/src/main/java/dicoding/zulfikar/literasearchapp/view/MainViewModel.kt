@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dicoding.zulfikar.literasearchapp.data.local.entity.BookEntity
+import dicoding.zulfikar.literasearchapp.data.model.Library
 import dicoding.zulfikar.literasearchapp.data.remote.Result
-import dicoding.zulfikar.literasearchapp.data.remote.response.StoryResponse
 import dicoding.zulfikar.literasearchapp.data.repository.BookRepository
 
 class MainViewModel(private val repository: BookRepository) : ViewModel(){
@@ -22,11 +22,10 @@ class MainViewModel(private val repository: BookRepository) : ViewModel(){
 
     suspend fun getBook(){
         return repository.getBook()
-
     }
-    suspend fun getStory(): Result<StoryResponse>{
-        return repository.getStories()
 
+    suspend fun getLibrary() : Result<List<Library>> {
+        return repository.getLibrary()
     }
 //    suspend fun getStoryLocation(token: String) :Result<StoryResponse>{
 //        return repository.getStoryLocation(token)

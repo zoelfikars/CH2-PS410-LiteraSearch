@@ -1,4 +1,4 @@
-package dicoding.zulfikar.literasearchapp.view.paging
+package dicoding.zulfikar.literasearchapp.view.book
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

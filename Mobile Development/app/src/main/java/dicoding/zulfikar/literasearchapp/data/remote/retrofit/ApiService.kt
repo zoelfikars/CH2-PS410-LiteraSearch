@@ -2,16 +2,12 @@ package dicoding.zulfikar.literasearchapp.data.remote.retrofit
 
 import dicoding.zulfikar.literasearchapp.data.remote.response.BookResponse
 import dicoding.zulfikar.literasearchapp.data.remote.response.LibraryResponse
-import dicoding.zulfikar.literasearchapp.data.remote.response.StoryResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("stories")
-    suspend fun getStories(
-    ): StoryResponse
     @GET("all/")
     suspend fun getAllBook(
         @Query("page") page: Int = 1,
