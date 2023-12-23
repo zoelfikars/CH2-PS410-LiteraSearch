@@ -24,7 +24,7 @@ class LibraryFragment : Fragment() {
         ViewModelFactory.getInstance(requireContext())
     }
     private var adapter = LibraryAdapter { item ->
-        move(MainFragmentDirections.actionMainFragmentToProfileFragment(libraryData = item))
+        move(MainFragmentDirections.actionMainFragmentToLibraryDetailFragment())
     }
 
     companion object {

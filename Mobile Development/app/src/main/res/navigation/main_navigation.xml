@@ -66,9 +66,19 @@
             app:destination="@id/libraryFragment" />
         <action
             android:id="@+id/action_mainFragment_to_profileFragment"
-            app:destination="@id/profileFragment">
-
+            app:destination="@id/profileFragment"/>
+        <action
+            android:id="@+id/action_mainFragment_to_libraryDetailFragment"
+            app:destination="@id/libraryDetailFragment">
+            <argument
+                android:name="libraryData"
+                android:defaultValue="@null"
+                app:argType="dicoding.zulfikar.literasearchapp.data.model.Library"
+                app:nullable="true" />
         </action>
+        <action
+            android:id="@+id/action_mainFragment_to_bookDetailFragment"
+            app:destination="@id/bookDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/bookDetailFragment"
@@ -93,24 +103,16 @@
         tools:layout="@layout/fragment_book">
         <action
             android:id="@+id/action_bookFragment_to_bookDetailFragment"
-            app:destination="@id/bookDetailFragment"/>
+            app:destination="@id/bookDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/libraryFragment"
         android:name="dicoding.zulfikar.literasearchapp.view.library.LibraryFragment"
         android:label="fragment_library"
         tools:layout="@layout/fragment_library">
-        <argument
-            android:name="libraryData"
-            android:defaultValue="@null"
-            app:argType="dicoding.zulfikar.literasearchapp.data.model.Library"
-            app:nullable="true" />
         <action
             android:id="@+id/action_libraryFragment_to_libraryDetailFragment"
-            app:destination="@id/libraryDetailFragment">
-
-        </action>
-
+            app:destination="@id/libraryDetailFragment"/>
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
