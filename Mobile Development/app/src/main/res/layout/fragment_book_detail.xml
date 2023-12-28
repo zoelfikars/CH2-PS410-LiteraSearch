@@ -1,14 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.book.BookDetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/book_detail_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="2dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/imageButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="Detail Buku"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.github.captain_miao.optroundcardview.OptRoundCardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/book_detail_toolbar"
+        app:optRoundCardBackgroundColor="@android:color/transparent"
+        app:optRoundCardCornerRadius="20dp"
+        app:optRoundCardLeftTopCorner="false"
+        app:optRoundCardRightTopCorner="false">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/contoh_buku" />
+    </com.github.captain_miao.optroundcardview.OptRoundCardView>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:paddingTop="16dp"
+        android:text="Harry Potter"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <TextView
+        android:id="@+id/tv_author"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="J.K. Rowling"
+        android:textAlignment="center"
+        android:textColor="#737373"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    <TextView
+        android:id="@+id/tv_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="9/10"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_author" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/cv_dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rating">
+
+        <TextView
+            android:id="@+id/tv_sinopsis"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:lineSpacingMultiplier="1.2"
+            android:text="At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat"
+            android:textAlignment="viewStart" />
+    </ScrollView>
+
+    <com.github.captain_miao.optroundcardview.OptRoundCardView
+        android:id="@+id/cv_dropdown"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:elevation="0dp"
+        android:maxHeight="500dp"
+        android:paddingBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:optRoundCardBackgroundColor="@color/green"
+        app:optRoundCardCornerRadius="20dp"
+        app:optRoundCardLeftBottomCorner="false"
+        app:optRoundCardRightBottomCorner="false">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/imageButton5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_arrow_down"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Perpustakaan Terdekat"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageButton5" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_perpustakaan_detail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:padding="16dp"
+                android:scrollbarSize="0dp"
+                android:scrollbars="vertical"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView18"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_library" />
+
+            <ProgressBar
+                android:id="@+id/progressBar5"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/rv_perpustakaan_detail"
+                app:layout_constraintEnd_toEndOf="@+id/rv_perpustakaan_detail"
+                app:layout_constraintStart_toStartOf="@+id/rv_perpustakaan_detail"
+                app:layout_constraintTop_toTopOf="@+id/rv_perpustakaan_detail" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.github.captain_miao.optroundcardview.OptRoundCardView>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/ic_stars"
+        app:layout_constraintEnd_toStartOf="@+id/tv_rating"
+        app:layout_constraintTop_toBottomOf="@+id/tv_author" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

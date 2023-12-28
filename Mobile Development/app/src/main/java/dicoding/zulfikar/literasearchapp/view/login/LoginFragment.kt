@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
@@ -21,6 +22,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dicoding.zulfikar.literasearchapp.R
 import dicoding.zulfikar.literasearchapp.databinding.FragmentLoginBinding
+import dicoding.zulfikar.literasearchapp.utility.isValidEmail
 import dicoding.zulfikar.literasearchapp.utility.showToast
 
 class LoginFragment : Fragment() {
@@ -54,7 +56,7 @@ class LoginFragment : Fragment() {
         super.onStart()
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            move(LoginFragmentDirections.actionLoginFragmentToMainFragment())
+            move(LoginFragmentDirections.actionLoginFragmentToMainFragment("login"))
         }
     }
 
@@ -77,6 +79,14 @@ class LoginFragment : Fragment() {
     }
 
     private fun setupAction() {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val action = LoginFragmentDirections.actionLoginFragmentToWelcomeFragment()
+                move(action)
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher
         with(binding) {
             buttonMasuk.setOnClickListener {
                 login()
@@ -97,32 +107,36 @@ class LoginFragment : Fragment() {
         with(binding) {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
-            showLoading(true)
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(requireActivity()) { task ->
-                    if (task.isSuccessful) {
-                        showLoading(false)
-                        Log.d(TAG, "signInWithEmail:success")
-                        showToast("Berhasil masuk", requireContext())
-                        move(LoginFragmentDirections.actionLoginFragmentToMainFragment())
-                    } else {
-                        showLoading(false)
-                        when (task.exception) {
-                            is FirebaseAuthInvalidUserException -> {
-                                showToast("Email belum terdaftar", requireContext())
-                            }
+            if(isValidEmail(email) && password.length >= 8) {
+                showLoading(true)
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(requireActivity()) { task ->
+                        if (task.isSuccessful) {
+                            showLoading(false)
+                            Log.d(TAG, "signInWithEmail:success")
+                            showToast("Berhasil masuk", requireContext())
+                            move(LoginFragmentDirections.actionLoginFragmentToMainFragment("login"))
+                        } else {
+                            showLoading(false)
+                            when (task.exception) {
+                                is FirebaseAuthInvalidUserException -> {
+                                    showToast("Email belum terdaftar", requireContext())
+                                }
 
-                            is FirebaseAuthInvalidCredentialsException -> {
-                                showToast("Email atau password salah", requireContext())
-                            }
+                                is FirebaseAuthInvalidCredentialsException -> {
+                                    showToast("Email atau password salah", requireContext())
+                                }
 
-                            else -> {
-                                showToast("Gagal masuk, silahkan coba lagi", requireContext())
+                                else -> {
+                                    showToast("Gagal masuk, silahkan coba lagi", requireContext())
+                                }
                             }
+                            Log.w(TAG, "signInWithEmail:failure", task.exception)
                         }
-                        Log.w(TAG, "signInWithEmail:failure", task.exception)
                     }
-                }
+            } else {
+                showToast("Tolong lengkapi email dan password", requireContext())
+            }
         }
     }
 
@@ -154,7 +168,7 @@ class LoginFragment : Fragment() {
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithCredential:success")
                     showToast("Autentikasi berhasil", requireContext())
-                    move(LoginFragmentDirections.actionLoginFragmentToMainFragment())
+                    move(LoginFragmentDirections.actionLoginFragmentToMainFragment("login"))
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     showToast("Autentikasi gagal", requireContext())

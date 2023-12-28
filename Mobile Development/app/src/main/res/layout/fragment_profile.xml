@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="84dp"
         android:fontFamily="@font/poppins_regular"
-        android:text="Email"
+        android:text="Email Baru"
         android:textColor="@color/grey"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout"
@@ -73,9 +73,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textView12">
 
         <dicoding.zulfikar.literasearchapp.view.custom.EmailEditText
+            android:id="@+id/et_new_email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableStart="@drawable/ic_baseline_email_24"
+            android:drawableStart="@drawable/ic_email"
             android:drawablePadding="16dp"
             android:fontFamily="@font/poppins_regular"
             android:textSize="14sp" />
@@ -100,6 +101,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
     <Button
+        android:id="@+id/bt_logout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"

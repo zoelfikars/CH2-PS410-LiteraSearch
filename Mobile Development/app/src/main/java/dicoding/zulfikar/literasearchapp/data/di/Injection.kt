@@ -7,9 +7,10 @@ import dicoding.zulfikar.literasearchapp.data.repository.BookRepository
 
 object Injection {
     fun provideRepository(context: Context): BookRepository {
-        val bookDatabase = BookDatabase.getDatabase(context)
+        val database = BookDatabase.getDatabase(context)
         val apiService = ApiConfig.getApiService()
-        return BookRepository.getInstance(apiService, bookDatabase
+        return BookRepository.getInstance(apiService
+            , database
         )
     }
 }

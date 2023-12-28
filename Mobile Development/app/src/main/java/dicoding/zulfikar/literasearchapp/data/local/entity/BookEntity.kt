@@ -3,7 +3,7 @@ package dicoding.zulfikar.literasearchapp.data.local.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "book")
+@Entity(tableName = "all_book")
 data class BookEntity(
     val coverUrl: String,
     val publicationYear: Int,
@@ -14,6 +14,5 @@ data class BookEntity(
     val publisher: String,
     val description: String,
     val title: String,
-    val idPerpus: Int,
-    val filter: String? = null
+    val idPerpus: Int
 )

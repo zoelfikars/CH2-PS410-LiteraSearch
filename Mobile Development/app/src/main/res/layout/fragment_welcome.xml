@@ -7,7 +7,7 @@
     tools:context=".view.welcome.WelcomeFragment">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/img_slider"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
@@ -49,7 +49,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/img_slider" />
 
     <TextView
         android:id="@+id/textView2"

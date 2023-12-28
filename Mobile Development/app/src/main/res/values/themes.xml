@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.LiteraSearchApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="homeAsUpIndicator">@drawable/ic_baseline_back_24</item>
+        <item name="homeAsUpIndicator">@drawable/ic_back</item>
     </style>
 
     <style name="Theme.LiteraSearchApp" parent="Base.Theme.LiteraSearchApp" />

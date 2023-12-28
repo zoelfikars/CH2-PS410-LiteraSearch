@@ -1,74 +1,104 @@
 package dicoding.zulfikar.literasearchapp.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import com.google.gson.Gson
 import dicoding.zulfikar.literasearchapp.data.local.BookDatabase
 import dicoding.zulfikar.literasearchapp.data.local.entity.BookEntity
+import dicoding.zulfikar.literasearchapp.data.local.entity.LibraryBookEntity
+import dicoding.zulfikar.literasearchapp.data.local.entity.PopularBookEntity
+import dicoding.zulfikar.literasearchapp.data.local.entity.SearchedBookEntity
+import dicoding.zulfikar.literasearchapp.data.local.entity.TrendingBookEntity
 import dicoding.zulfikar.literasearchapp.data.model.Library
 import dicoding.zulfikar.literasearchapp.data.remote.Result
-import dicoding.zulfikar.literasearchapp.data.remote.response.LibraryResponse
 import dicoding.zulfikar.literasearchapp.data.remote.retrofit.ApiService
-import dicoding.zulfikar.literasearchapp.view.book.BookRemoteMediator
+import dicoding.zulfikar.literasearchapp.view.paging.BookRemoteMediator
+import dicoding.zulfikar.literasearchapp.view.paging.LibraryBookRemoteMediator
+import dicoding.zulfikar.literasearchapp.view.paging.PopularRemoteMediator
+import dicoding.zulfikar.literasearchapp.view.paging.SearchedRemoteMediator
+import dicoding.zulfikar.literasearchapp.view.paging.TrendingRemoteMediator
 
 class BookRepository private constructor(
     private var apiService: ApiService,
-    private val bookDatabase: BookDatabase
+    private val database: BookDatabase
 ) {
-    fun getBookTrending(): LiveData<PagingData<BookEntity>> {
+    fun getLibrary(): LiveData<Result<List<Library>>> = liveData {
+        emit(Result.Loading)
+        try {
+            val listResponse = apiService.getLibrary()
+            emit(Result.Success(listResponse.data))
+        } catch (e: Exception) {
+            emit(Result.Error(Exception(e)))
+        }
+    }
+
+    fun getPagingLibraryBook(id: String): LiveData<PagingData<LibraryBookEntity>>  {
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(
                 pageSize = 5
             ),
-            remoteMediator = BookRemoteMediator(bookDatabase, apiService, "Trending"),
+            remoteMediator = LibraryBookRemoteMediator(database, apiService, id),
             pagingSourceFactory = {
-                bookDatabase.bookDao().getBookPaging()
+                database.libraryBookDao().getAllBook()
             }
         ).liveData
     }
 
-//    suspend fun getBook(): Result<GetSpecificBookFromLibraryIdResponse> {
-//        return try {
-//            val result = apiService.getAllBook()
-//            val mapped = result.data.map { item ->
-//                BookEntity(
-//                    coverUrl = item.coverUrl,
-//                    publicationYear = item.publicationYear,
-//                    author = item.author,
-//                    subject = item.subject.joinToString(", "),
-//                    isbn = item.isbn,
-//                    publisher = item.publisher,
-//                    description = item.description.joinToString(", "),
-//                    title = item.title,
-//                    idPerpus = item.idPerpus
-//                )
-//            }
-//            return Result.Success(result)
-//        } catch (e: Exception) {
-//            Log.e("BookRepository", "Error fetching book data", e)
-//            return Result.Error(Exception(e.message))
-//        }
-//    }
-    suspend fun getBook() {
-
+    fun getPopularPaging(): LiveData<PagingData<PopularBookEntity>> {
+        @OptIn(ExperimentalPagingApi::class)
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            remoteMediator = PopularRemoteMediator(database, apiService),
+            pagingSourceFactory = {
+                database.popularDao().getAllBook()
+            }
+        ).liveData
     }
 
-    suspend fun getLibrary(): Result<List<Library>> {
-        Result.Loading
-        try {
-            val listResponse = apiService.getLibrary()
-            return Result.Success(listResponse.data)
-        } catch (e: retrofit2.HttpException) {
-            val jsonInString = e.response()?.errorBody()?.string()
-            val errorBody = Gson().fromJson(jsonInString, LibraryResponse::class.java)
-            val errorMessage = errorBody.message
-            return Result.Error(Exception(errorMessage))
-        }
+    fun getTrendingPaging(): LiveData<PagingData<TrendingBookEntity>> {
+        @OptIn(ExperimentalPagingApi::class)
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            remoteMediator = TrendingRemoteMediator(database, apiService),
+            pagingSourceFactory = {
+                database.trendingDao().getAllBook()
+            }
+        ).liveData
+    }
+
+    fun getBookPaging(): LiveData<PagingData<BookEntity>> {
+        @OptIn(ExperimentalPagingApi::class)
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            remoteMediator = BookRemoteMediator(database, apiService),
+            pagingSourceFactory = {
+                database.bookDao().getAllBook()
+            }
+        ).liveData
+    }
+
+    fun searchBook(key: String): LiveData<PagingData<SearchedBookEntity>> {
+        @OptIn(ExperimentalPagingApi::class)
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            remoteMediator = SearchedRemoteMediator(database, apiService, key),
+            pagingSourceFactory = {
+                database.searchDao().getAllBook()
+            }
+        ).liveData
     }
 
     companion object {
@@ -76,11 +106,12 @@ class BookRepository private constructor(
         private var instance: BookRepository? = null
         fun getInstance(
             apiService: ApiService,
-            bookDatabase: BookDatabase
+            database: BookDatabase
         ): BookRepository =
             instance ?: synchronized(this) {
                 instance ?: BookRepository(
-                    apiService, bookDatabase
+                    apiService,
+                    database
                 )
             }.also { instance = it }
     }

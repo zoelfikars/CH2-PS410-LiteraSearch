@@ -4,18 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.library.LibraryFragment" >
+    tools:context=".view.library.LibraryFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorPrimary"
+        android:elevation="2dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/library_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_back"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:backgroundTint="@android:color/transparent"
+                android:drawableStart="@drawable/search"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="search..."
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/library_back" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,26 +61,51 @@
             android:layout_width="match_parent"
             android:layout_height="0dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_library"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="17dp"
-                android:layout_marginBottom="9dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="menampilkan perpustakaan dengan kata kunci bandung"
+                android:textAlignment="center"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView" />
+                app:layout_constraintTop_toBottomOf="@+id/view_pager" />
 
-            <androidx.cardview.widget.CardView
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:elevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.viewpager2.widget.ViewPager2>
+
+            <LinearLayout
+                android:id="@+id/dots_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:elevation="1dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="@+id/view_pager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"></LinearLayout>
+
+            <com.github.captain_miao.optroundcardview.OptRoundCardView
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6">
+                app:optRoundCardCornerRadius="20dp"
+                app:optRoundCardLeftTopCorner="false"
+                app:optRoundCardRightTopCorner="false">
 
                 <ImageView
                     android:id="@+id/imageView5"
@@ -56,7 +113,20 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/contoh_perpus" />
-            </androidx.cardview.widget.CardView>
+            </com.github.captain_miao.optroundcardview.OptRoundCardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_library"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginBottom="17dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
             <ProgressBar
                 android:id="@+id/progressBar3"
@@ -67,17 +137,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/rv_library"
                 app:layout_constraintStart_toStartOf="@+id/rv_library"
                 app:layout_constraintTop_toTopOf="@+id/rv_library" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="menampilkan perpustakaan dengan kata kunci bandung"
-                android:textAlignment="center"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

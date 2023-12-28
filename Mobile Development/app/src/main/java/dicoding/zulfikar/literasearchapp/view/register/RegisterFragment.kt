@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import dicoding.zulfikar.literasearchapp.R
 import dicoding.zulfikar.literasearchapp.databinding.FragmentRegisterBinding
 import dicoding.zulfikar.literasearchapp.utility.showToast
 import dicoding.zulfikar.literasearchapp.view.login.LoginFragmentDirections
@@ -45,15 +47,24 @@ class RegisterFragment : Fragment() {
         super.onStart()
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            move(LoginFragmentDirections.actionLoginFragmentToMainFragment())
+            move(LoginFragmentDirections.actionLoginFragmentToMainFragment("register"))
         }
     }
 
     private fun setupAction() {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
+                move(action)
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher
         with(binding) {
             daftarButton.setOnClickListener { register() }
             googleRegister.setOnClickListener { registerGoogle() }
             tvLogin.setOnClickListener { move(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()) }
+
         }
     }
 
@@ -67,14 +78,21 @@ class RegisterFragment : Fragment() {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(requireActivity()) {
                         if (it.isSuccessful) {
-                            insertUserIdentity(name, email)
-                            showLoading(false)
-                            showToast(
-                                "Berhasil membuat akun, dan mengarahkan ke menu utama",
-                                requireContext()
-                            )
-                            move(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
-                            Log.d(TAG, "createUserWithEmail:success")
+                            val currentUID = auth.currentUser?.uid
+                            if (currentUID != null) {
+                                insertUserIdentity(currentUID, name, email)
+                                showLoading(false)
+                                showToast(
+                                    "Berhasil membuat akun, dan mengarahkan ke menu utama",
+                                    requireContext()
+                                )
+                                move(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+                                Log.d(TAG, "createUserWithEmail:success")
+                            } else {
+                                showLoading(false)
+                                showToast("Gagal mendapatkan UID pengguna.", requireContext())
+                                Log.e(TAG, "UID pengguna null.")
+                            }
                         } else {
                             showLoading(false)
                             val message = it.exception?.message
@@ -97,18 +115,22 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun insertUserIdentity(name: String, email: String) {
+    private fun insertUserIdentity(currentUID: String,name: String, email: String) {
         val data = hashMapOf(
             "name" to name,
             "email" to email,
         )
         val collectionReference = db.collection("user")
-        collectionReference.add(data).addOnSuccessListener { documentReference ->
-            Log.d("Firestore", "Dokumen berhasil ditambahkan dengan ID: ${documentReference.id}")
-        }
+        val documentReference = collectionReference.document(currentUID)
+
+        documentReference.set(data)
+            .addOnSuccessListener {
+                Log.d("Firestore", "Dokumen berhasil ditambahkan dengan ID: $currentUID")
+            }
             .addOnFailureListener { e ->
                 Log.w("Firestore", "Error menambahkan dokumen", e)
             }
+
     }
 
     private fun registerGoogle() {
@@ -123,4 +145,5 @@ class RegisterFragment : Fragment() {
     private fun move(mover: NavDirections) {
         findNavController().navigate(mover)
     }
+
 }

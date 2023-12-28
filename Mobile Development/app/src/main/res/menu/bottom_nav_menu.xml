@@ -3,13 +3,19 @@
     <item
         android:id="@+id/library"
         android:title="@string/perpustakaan"
-        android:icon="@drawable/baseline_library_24"/>
+        android:icon="@drawable/ic_library_menu"
+        android:checkable="true"
+        android:checkableBehavior="single" />
     <item
         android:id="@+id/book"
         android:title="@string/buku"
-        android:icon="@drawable/baseline_library_books_24"/>
+        android:icon="@drawable/ic_book"
+        android:checkable="true"
+        android:checkableBehavior="single" />
     <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_profile"
-        android:title="@string/profil" />
+        android:title="@string/profil"
+        android:checkable="true"
+        android:checkableBehavior="single" />
 </menu>

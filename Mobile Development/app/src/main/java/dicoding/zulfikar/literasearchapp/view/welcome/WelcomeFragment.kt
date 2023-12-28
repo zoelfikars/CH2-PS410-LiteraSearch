@@ -32,7 +32,7 @@ class WelcomeFragment : Fragment() {
                 findNavController().navigate(mover)
             }
             textGuest.setOnClickListener {
-                val mover = WelcomeFragmentDirections.actionWelcomeFragmentToMainFragment()
+                val mover = WelcomeFragmentDirections.actionWelcomeFragmentToMainFragment("welcome")
                 findNavController().navigate(mover)
             }
         }

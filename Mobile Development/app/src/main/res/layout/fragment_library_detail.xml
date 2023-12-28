@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".view.library.LibraryDetailFragment">
 
+
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar3"
+        android:id="@+id/library_detail_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -17,53 +18,75 @@
         tools:layout_editor_absoluteX="-12dp"
         tools:layout_editor_absoluteY="0dp">
 
-        <TextView
-            android:id="@+id/toolbar_title"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
-            android:text="Detail Perpustakaan"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/imageButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="Detail Perpustakaan"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.cardview.widget.CardView
+    <com.github.captain_miao.optroundcardview.OptRoundCardView
         android:id="@+id/cardView"
-        style="@style/imageCardView"
         android:layout_width="0dp"
         android:layout_height="250dp"
-        android:layout_marginTop="-20dp"
         app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="20dp"
         app:cardElevation="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3">
+        app:layout_constraintTop_toBottomOf="@+id/library_detail_toolbar"
+        app:optRoundCardCornerRadius="20dp"
+        app:optRoundCardLeftTopCorner="false"
+        app:optRoundCardRightTopCorner="false">
 
         <ImageView
+            android:id="@+id/img_perpus"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/contoh_perpus" />
-    </androidx.cardview.widget.CardView>
+    </com.github.captain_miao.optroundcardview.OptRoundCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.github.captain_miao.optroundcardview.OptRoundCardView
         android:id="@+id/cardView2"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/green"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="-20dp"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:optRoundCardBackgroundColor="@color/green"
+        app:optRoundCardCornerRadius="20dp"
+        app:optRoundCardLeftBottomCorner="false"
+        app:optRoundCardRightBottomCorner="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageButton
                 android:id="@+id/imageButton3"
@@ -90,25 +113,39 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageButton3" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginEnd="12dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="7dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+            <ProgressBar
+                android:id="@+id/progressBar4"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/recyclerView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.github.captain_miao.optroundcardview.OptRoundCardView>
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:fontFamily="@font/poppins_bold"
         android:text="Perpustakaan Universitas Jenderal Achmad Yani (Unjani)"
@@ -121,14 +158,15 @@
 
 
     <TextView
-        android:id="@+id/tv_sinopsis"
+        android:id="@+id/tv_alamat"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:text="R. Pelayanan Bersama, Gd. Rektorat, Jl. Terusan Jend. Sudirman Lt. 1, Baros, Kec. Cimahi Tengah, Kota Cimahi, Jawa Barat 40525"
         android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
@@ -144,7 +182,6 @@
         app:backgroundTint="@color/green"
         app:layout_constraintBottom_toTopOf="@+id/cardView2"
         app:layout_constraintEnd_toEndOf="parent" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

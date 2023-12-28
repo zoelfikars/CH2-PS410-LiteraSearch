@@ -23,8 +23,8 @@ interface ApiService {
 
     @GET("popular")
     suspend fun getPopular(
-        @Query("page") page: Int = 1,
-        @Query("size") size: Int = 20
+        @Query("page") page: Int? = 1,
+        @Query("size") size: Int? = 20
     ): BookResponse
 
     @GET("info/{isbn}")
@@ -43,7 +43,7 @@ interface ApiService {
     suspend fun getTrendingBook(
         @Path("timespan") timespan: String,
         @Query("page") page: Int = 1,
-        @Query("size") size: Int = 20
+        @Query("size") size: Int = 5
     ): BookResponse
 
     @GET("libraries")

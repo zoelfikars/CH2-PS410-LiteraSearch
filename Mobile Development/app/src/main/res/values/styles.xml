@@ -22,6 +22,11 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
+    <style name="viewPagerImage" parent="">
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+    </style>
+
     <color name="colorPrimary">@color/green</color>
     <color name="colorPrimaryDark">#2980b9</color>
 

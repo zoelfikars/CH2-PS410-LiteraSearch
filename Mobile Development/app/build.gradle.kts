@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs")
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
     id("com.google.gms.google-services")
     id("kotlin-parcelize")
 }
@@ -70,7 +70,7 @@ dependencies {
     implementation("androidx.room:room-paging:2.6.1")
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
     androidTestImplementation("androidx.room:room-testing:2.6.1")
 
@@ -84,6 +84,15 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
 
 //    circular image
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
+//    image slider viewpager2
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("com.github.captain-miao:optroundcardview:1.0.0")
+    implementation ("com.makeramen:roundedimageview:2.3.0")
+
+//    recyclerview
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
+
 }
 

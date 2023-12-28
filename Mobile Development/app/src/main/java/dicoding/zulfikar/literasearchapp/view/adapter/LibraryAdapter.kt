@@ -1,4 +1,4 @@
-package dicoding.zulfikar.literasearchapp.view.library
+package dicoding.zulfikar.literasearchapp.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,6 +10,22 @@ import dicoding.zulfikar.literasearchapp.databinding.ItemLibraryBinding
 
 class LibraryAdapter(private val onItemClick: (Library) -> Unit) :
     ListAdapter<Library, LibraryAdapter.LibraryViewHolder>(LibraryDiffCallback()) {
+    private var originalData: List<Library> = listOf()
+    private var filteredData: List<Library> = listOf()
+
+    fun setData(data: List<Library>) {
+        originalData = data
+        filteredData = data
+        submitList(data)
+    }
+
+    fun filter(query: String) {
+        filteredData = originalData.filter { library ->
+            library.perpustakaan.contains(query, ignoreCase = true) ||
+                    library.alamat.contains(query, ignoreCase = true)
+        }
+        submitList(filteredData)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibraryViewHolder {
         val inflater = LayoutInflater.from(parent.context)

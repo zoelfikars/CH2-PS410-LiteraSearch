@@ -76,7 +76,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4"
-                app:startIconDrawable="@drawable/ic_baseline_email_24">
+                app:startIconDrawable="@drawable/ic_email">
 
                 <dicoding.zulfikar.literasearchapp.view.custom.EmailEditText
                     android:id="@+id/emailEditText"
@@ -98,7 +98,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5"
-                app:startIconDrawable="@drawable/ic_baseline_lock_24">
+                app:startIconDrawable="@drawable/ic_lock">
 
                 <dicoding.zulfikar.literasearchapp.view.custom.PasswordEditText
                     android:id="@+id/passwordEditText"
@@ -211,7 +211,7 @@
                 android:layout_height="50dp"
                 android:backgroundTint="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/google_color_svgrepo_com"
+                android:src="@drawable/ic_google"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView15" />
